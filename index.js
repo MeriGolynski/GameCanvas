@@ -42,15 +42,15 @@ function gerarNumeroAleatorio(min, max) {
 
 // inicializa o jogo
 // declaração e uso de 1 função sem retorno
-function loop() {
-    // o numero é a velocidade do jogo
+function iniciarJogo() {
+    // o numero 100 é a velocidade do jogo
     setTimeout(atualizarJogo, 100);
 }
 
 // Atualiza a tela do jogo a cada 100 milisegundos
 function atualizarJogo() {
     // chama a função do canvas para atualizar o jogo
-    requestAnimationFrame(loop);
+    requestAnimationFrame(iniciarJogo);
     limparCanvas();
     atualizarPacman();
     desenharPacman();
@@ -114,7 +114,7 @@ function verificarSePacmanEncontrouAlvo() {
             gerarPosicaoAleatoriaParaAlvo();
         }
 
-        // verifica se a pacman colidiu com ela mesma
+        // verifica se a pacman colidiu com ele mesmo
         for (let i = index + 1; i < pacman.celulas.length; i++) {
             if (cell.x === pacman.celulas[i].x && cell.y === pacman.celulas[i].y) {
                 // reseta o jogo
@@ -127,7 +127,8 @@ function verificarSePacmanEncontrouAlvo() {
 // desenha o pacman
 function desenharPacman() {
     for (let i = 0; i < pacman.celulas.length; i++) {
-        if (i === 0) {
+        if (i === 0) { 
+            // na primeira vez que passa no for identifica se é o primeiro elemento e desenha o pacman
             context.drawImage(
                 imagePac,
                 pacman.celulas[i].x,
@@ -135,9 +136,10 @@ function desenharPacman() {
                 tamanhoImagem,
                 tamanhoImagem
             )
-            continue;
+            // continua para o próximo item do for
+            continue; 
         }
-
+        // no restante do for desenha o fantasma
         context.drawImage(
             image,
             pacman.celulas[i].x,
@@ -172,7 +174,7 @@ function gerarNumeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// reseta o jogo quando a pacman colidir com ela mesma
+// reseta o jogo quando a pacman colidir com ele mesmo
 function resetarJogo() {
     pacman.x = 160;
     pacman.y = 160;
@@ -184,7 +186,7 @@ function resetarJogo() {
     gerarPosicaoAletariaParaAlvo();
 }
 
-// adiciona os eventos dos botões
+// adiciona os eventos dos botões do jogo
 document.addEventListener("keydown", function (e) {
     const { key } = e;
     // verifica se a tecla pressionada foi seta para cima
@@ -227,4 +229,4 @@ document.addEventListener("keydown", function (e) {
     }
 });
 
-loop();
+iniciarJogo();
